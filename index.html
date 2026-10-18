@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snap – Make Remote Work</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+      <!-- Logo -->
+      <a href="/" class="logo">
+        <img src="./assets/images/logo.svg" alt="snap's logo" />
+      </a>
+
+      <!-- Desktop / Mobile Navigation -->
+      <nav class="nav" id="nav" aria-label="Main navigation">
+        <ul class="nav-list">
+
+          <!-- Features dropdown -->
+          <li class="nav-item">
+            <button
+              class="nav-link"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-dropdown="features"
+            >
+              Features
+              <img
+                class="arrow-icon"
+                src="./assets/images/icon-arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <ul class="dropdown-list" id="dropdown-features" role="list">
+              <li class="dropdown-link">
+                <a href="#" aria-label="todo-list">
+                  <img src="./assets/images/icon-todo.svg" alt="" aria-hidden="true" />
+                  Todo List
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-calendar.svg" alt="" aria-hidden="true" />
+                  Calendar
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-reminders.svg" alt="" aria-hidden="true" />
+                  Reminders
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-planning.svg" alt="" aria-hidden="true" />
+                  Planning
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Company dropdown -->
+          <li class="nav-item">
+            <button
+              class="nav-link"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-dropdown="company"
+            >
+              Company
+              <img
+                class="arrow-icon"
+                src="./assets/images/icon-arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <ul class="dropdown-list" id="dropdown-company" role="list">
+              <li class="dropdown-link">
+                <a href="#">History</a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">Our Team</a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">Blog</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Static links -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Careers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Authentication buttons -->
+      <div class="auth-buttons">
+        <button class="registration login-btn">Login</button>
+        <button class="registration register-btn">Register</button>
+      </div>
+
+      <!-- Mobile menu controls -->
+      <button class="open-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <img src="./assets/images/icon-menu.svg" alt="open menu" />
+      </button>
+    </header>
+
+    <!-- Mobile overlay -->
+    <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <button class="close-menu" aria-label="Close menu">
+        <img src="./assets/images/icon-close-menu.svg" alt="close menu" />
+      </button>
+
+      <nav aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+
+          <!-- Mobile Features dropdown -->
+          <li class="mobile-nav-item">
+            <button
+              class="mobile-nav-link"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-mobile-dropdown="m-features"
+            >
+              Features
+              <img
+                class="arrow-icon"
+                src="./assets/images/icon-arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <ul class="dropdown-list mobile-dropdown" id="m-features" role="list">
+              <li class="dropdown-link">
+                <a href="#" aria-label="todo-list">
+                  <img src="./assets/images/icon-todo.svg" alt="" aria-hidden="true" />
+                  Todo List
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-calendar.svg" alt="" aria-hidden="true" />
+                  Calendar
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-reminders.svg" alt="" aria-hidden="true" />
+                  Reminders
+                </a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">
+                  <img src="./assets/images/icon-planning.svg" alt="" aria-hidden="true" />
+                  Planning
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Mobile Company dropdown -->
+          <li class="mobile-nav-item">
+            <button
+              class="mobile-nav-link"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-mobile-dropdown="m-company"
+            >
+              Company
+              <img
+                class="arrow-icon"
+                src="./assets/images/icon-arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <ul class="dropdown-list mobile-dropdown" id="m-company" role="list">
+              <li class="dropdown-link">
+                <a href="#">History</a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">Our Team</a>
+              </li>
+              <li class="dropdown-link">
+                <a href="#">Blog</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="mobile-nav-item">
+            <a class="mobile-nav-link" href="#">Careers</a>
+          </li>
+          <li class="mobile-nav-item">
+            <a class="mobile-nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="mobile-auth">
+        <button class="registration login-btn">Login</button>
+        <button class="registration register-btn">Register</button>
+      </div>
+    </div>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main">
+      <!-- Hero image -->
+      <picture>
+        <source srcset="./assets/images/image-hero-desktop.png" media="(min-width: 768px)" />
+        <img
+          src="./assets/images/image-hero-mobile.png"
+          alt="People working remotely on their devices"
+          class="hero-image"
+        />
+      </picture>
+
+      <!-- Hero text -->
+      <div class="text-content">
+        <h1>Make remote work</h1>
+        <p>
+          Get your team in sync, no matter your location. Streamline processes,
+          create team rituals, and watch productivity soar.
+        </p>
+        <a href="#" class="cta-btn">Learn more</a>
+
+        <!-- Client logos -->
+        <section class="clients" aria-label="Our clients">
+          <img src="./assets/images/client-databiz.svg" alt="Databiz" />
+          <img src="./assets/images/client-audiophile.svg" alt="Audiophile" />
+          <img src="./assets/images/client-meet.svg" alt="Meet" />
+          <img src="./assets/images/client-maker.svg" alt="Maker" />
+        </section>
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+      <p class="attribution">
+        Challenge by
+        <a href="https://crio.do" target="_blank" rel="noopener noreferrer">Crio.Do</a>.
+        Coded by <a href="#">You</a>.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
