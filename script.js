@@ -34,21 +34,17 @@
    * @param {HTMLElement} trigger - The button that controls the dropdown.
    * @param {HTMLElement} list    - The <ul> dropdown element.
    */
-  function openDropdown(trigger, list) {
-    list.classList.add("is-open");
-    trigger.setAttribute("aria-expanded", "true");
-  }
+ function openDropdown(trigger, list) {
+  list.classList.add("is-open");
+  trigger.classList.add("link-open");
+  trigger.setAttribute("aria-expanded", "true");
+}
 
-  /**
-   * Close a dropdown list and reset aria-expanded.
-   * @param {HTMLElement} trigger
-   * @param {HTMLElement} list
-   */
-  function closeDropdown(trigger, list) {
-    list.classList.remove("is-open");
-    trigger.setAttribute("aria-expanded", "false");
-  }
-
+function closeDropdown(trigger, list) {
+  list.classList.remove("is-open");
+  trigger.classList.remove("link-open");
+  trigger.setAttribute("aria-expanded", "false");
+}
   /**
    * Close ALL desktop dropdowns.
    */
@@ -105,14 +101,19 @@
   }
 
   function closeMobileMenu() {
-    mobileMenu.classList.remove("is-open");
-    mobileMenu.setAttribute("aria-hidden", "true");
-    overlay.classList.remove("is-visible");
-    overlay.setAttribute("aria-hidden", "true");
-    openMenuBtn.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-    closeAllMobileDropdowns();
-  }
+  if (!mobileMenu || !overlay || !openMenuBtn) return;
+
+  mobileMenu.classList.remove("is-open");
+  mobileMenu.setAttribute("aria-hidden", "true");
+
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+
+  openMenuBtn.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+
+  closeAllMobileDropdowns();
+}
 
   if (openMenuBtn)  openMenuBtn.addEventListener("click",  openMobileMenu);
   if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeMobileMenu);
