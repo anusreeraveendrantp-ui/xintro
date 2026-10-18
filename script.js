@@ -1,158 +1,202 @@
+```javascript
 /**
  * Snap – Navigation script
- * Handles:
- *  - Desktop dropdown open/close (click only, not hover)
- *  - Mobile menu open/close
- *  - Mobile dropdown accordion
- *  - Close dropdowns when clicking outside
- *  - Keyboard: Escape closes open dropdowns / mobile menu
+ *
+ * Features:
+ * - Desktop dropdown open/close on click
+ * - Close desktop dropdowns when clicking outside
+ * - Mobile menu open/close
+ * - Mobile dropdown accordion
+ * - Overlay click closes mobile menu
+ * - Escape key closes dropdowns and mobile menu
  */
 
 (function () {
   "use strict";
 
-  // ── Element references ──────────────────────────────────────────────────────
-  const openMenuBtn  = document.querySelector(".open-menu");
-  const closeMenuBtn = document.querySelector(".close-menu");
-  const mobileMenu   = document.getElementById("mobile-menu");
-  const overlay      = document.getElementById("overlay");
+  // =========================================
+  // ELEMENT REFERENCES
+  // =========================================
 
-  // Desktop nav-link buttons that have dropdowns
+  const openMenuBtn = document.querySelector(".open-menu");
+  const closeMenuBtn = document.querySelector(".close-menu");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("overlay");
+
   const desktopDropdownTriggers = document.querySelectorAll(
     ".nav-link[data-dropdown]"
   );
 
-  // Mobile nav-link buttons that have dropdowns
   const mobileDropdownTriggers = document.querySelectorAll(
     ".mobile-nav-link[data-mobile-dropdown]"
   );
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
+  // =========================================
+  // DROPDOWN HELPERS
+  // =========================================
 
-  /**
-   * Open a dropdown list and update the trigger's aria-expanded attribute.
-   * @param {HTMLElement} trigger - The button that controls the dropdown.
-   * @param {HTMLElement} list    - The <ul> dropdown element.
-   */
- function openDropdown(trigger, list) {
-  list.classList.add("is-open");
-  trigger.classList.add("link-open");
-  trigger.setAttribute("aria-expanded", "true");
-}
+  function openDropdown(trigger, list) {
+    if (!trigger || !list) return;
 
-function closeDropdown(trigger, list) {
-  list.classList.remove("is-open");
-  trigger.classList.remove("link-open");
-  trigger.setAttribute("aria-expanded", "false");
-}
-  /**
-   * Close ALL desktop dropdowns.
-   */
+    list.classList.add("is-open");
+    trigger.classList.add("link-open");
+    trigger.setAttribute("aria-expanded", "true");
+  }
+
+  function closeDropdown(trigger, list) {
+    if (!trigger || !list) return;
+
+    list.classList.remove("is-open");
+    trigger.classList.remove("link-open");
+    trigger.setAttribute("aria-expanded", "false");
+  }
+
+  // =========================================
+  // DESKTOP DROPDOWNS
+  // =========================================
+
   function closeAllDesktopDropdowns() {
     desktopDropdownTriggers.forEach(function (trigger) {
-      const listId = trigger.dataset.dropdown;
-      const list   = document.getElementById("dropdown-" + listId);
-      if (list) closeDropdown(trigger, list);
+      const dropdownId = "dropdown-" + trigger.dataset.dropdown;
+      const list = document.getElementById(dropdownId);
+
+      if (list) {
+        closeDropdown(trigger, list);
+      }
     });
   }
-
-  /**
-   * Close ALL mobile dropdowns.
-   */
-  function closeAllMobileDropdowns() {
-    mobileDropdownTriggers.forEach(function (trigger) {
-      const listId = trigger.dataset.mobileDropdown;
-      const list   = document.getElementById(listId);
-      if (list) closeDropdown(trigger, list);
-    });
-  }
-
-  // ── Desktop dropdown logic ───────────────────────────────────────────────────
 
   desktopDropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener("click", function (e) {
-      e.stopPropagation();
+    trigger.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
 
-      const listId  = trigger.dataset.dropdown;
-      const list    = document.getElementById("dropdown-" + listId);
+      const dropdownId = "dropdown-" + trigger.dataset.dropdown;
+      const list = document.getElementById(dropdownId);
+
       if (!list) return;
 
-      const isOpen  = list.classList.contains("is-open");
+      const wasOpen = list.classList.contains("is-open");
 
-      // Close every desktop dropdown first
+      // Close all desktop dropdowns first.
       closeAllDesktopDropdowns();
 
-      // Toggle: if it was closed, open it; otherwise leave it closed
-      if (!isOpen) {
+      // If the selected dropdown was closed, open it.
+      // If it was already open, leave it closed.
+      if (!wasOpen) {
         openDropdown(trigger, list);
       }
     });
   });
 
-  // ── Mobile menu logic ────────────────────────────────────────────────────────
+  // =========================================
+  // MOBILE DROPDOWNS
+  // =========================================
+
+  function closeAllMobileDropdowns() {
+    mobileDropdownTriggers.forEach(function (trigger) {
+      const listId = trigger.dataset.mobileDropdown;
+      const list = document.getElementById(listId);
+
+      if (list) {
+        closeDropdown(trigger, list);
+      }
+    });
+  }
+
+  mobileDropdownTriggers.forEach(function (trigger) {
+    trigger.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const listId = trigger.dataset.mobileDropdown;
+      const list = document.getElementById(listId);
+
+      if (!list) return;
+
+      const wasOpen = list.classList.contains("is-open");
+
+      // Accordion behavior: close other mobile dropdowns.
+      closeAllMobileDropdowns();
+
+      if (!wasOpen) {
+        openDropdown(trigger, list);
+      }
+    });
+  });
+
+  // =========================================
+  // MOBILE MENU
+  // =========================================
 
   function openMobileMenu() {
+    if (!mobileMenu || !overlay || !openMenuBtn) return;
+
     mobileMenu.classList.add("is-open");
     mobileMenu.setAttribute("aria-hidden", "false");
+
     overlay.classList.add("is-visible");
     overlay.setAttribute("aria-hidden", "false");
+
     openMenuBtn.setAttribute("aria-expanded", "true");
+
     document.body.style.overflow = "hidden";
   }
 
   function closeMobileMenu() {
-  if (!mobileMenu || !overlay || !openMenuBtn) return;
+    if (mobileMenu) {
+      mobileMenu.classList.remove("is-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+    }
 
-  mobileMenu.classList.remove("is-open");
-  mobileMenu.setAttribute("aria-hidden", "true");
+    if (overlay) {
+      overlay.classList.remove("is-visible");
+      overlay.setAttribute("aria-hidden", "true");
+    }
 
-  overlay.classList.remove("is-visible");
-  overlay.setAttribute("aria-hidden", "true");
+    if (openMenuBtn) {
+      openMenuBtn.setAttribute("aria-expanded", "false");
+    }
 
-  openMenuBtn.setAttribute("aria-expanded", "false");
-  document.body.style.overflow = "";
+    document.body.style.overflow = "";
 
-  closeAllMobileDropdowns();
-}
+    closeAllMobileDropdowns();
+  }
 
-  if (openMenuBtn)  openMenuBtn.addEventListener("click",  openMobileMenu);
-  if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeMobileMenu);
-  if (overlay)      overlay.addEventListener("click",      closeMobileMenu);
-
-  // ── Mobile dropdown accordion ────────────────────────────────────────────────
-
-  mobileDropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      const listId = trigger.dataset.mobileDropdown;
-      const list   = document.getElementById(listId);
-      if (!list) return;
-
-      const isOpen = list.classList.contains("is-open");
-
-      // Close all mobile dropdowns first (accordion behaviour)
-      closeAllMobileDropdowns();
-
-      if (!isOpen) {
-        openDropdown(trigger, list);
-      }
+  if (openMenuBtn) {
+    openMenuBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      openMobileMenu();
     });
-  });
+  }
 
-  // ── Close on outside click ───────────────────────────────────────────────────
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      closeMobileMenu();
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", function () {
+      closeMobileMenu();
+    });
+  }
+
+  // =========================================
+  // CLICK OUTSIDE DESKTOP DROPDOWNS
+  // =========================================
 
   document.addEventListener("click", function () {
     closeAllDesktopDropdowns();
   });
 
-  // ── Keyboard: Escape ─────────────────────────────────────────────────────────
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      closeAllDesktopDropdowns();
-      closeMobileMenu();
-    }
+  // Prevent clicks inside dropdown lists from bubbling to
+  // the document-level outside-click handler.
+  document.querySelectorAll(".dropdown-list").forEach(function (list) {
+    list.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
   });
 
-})();
+  //
