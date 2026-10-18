@@ -1,4 +1,4 @@
-```javascript
+
 /**
  * Snap – Navigation script
  *
