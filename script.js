@@ -69,25 +69,29 @@ function closeDropdown(trigger, list) {
 
   // ── Desktop dropdown logic ───────────────────────────────────────────────────
 
-  desktopDropdownTriggers.forEach(function (trigger) {
-    trigger.addEventListener("click", function (e) {
-      e.stopPropagation();
 
-      const listId  = trigger.dataset.dropdown;
-      const list    = document.getElementById("dropdown-" + listId);
-      if (!list) return;
+desktopDropdownTriggers.forEach(function (trigger) {
+  trigger.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-      const isOpen  = list.classList.contains("is-open");
+    const listId = trigger.dataset.dropdown;
+    const list = document.getElementById("dropdown-" + listId);
 
-      // Close every desktop dropdown first
-      closeAllDesktopDropdowns();
+    if (!list) return;
 
-      // Toggle: if it was closed, open it; otherwise leave it closed
-      if (!isOpen) {
-        openDropdown(trigger, list);
-      }
-    });
+    // Clicking an open dropdown closes it.
+    if (list.classList.contains("is-open")) {
+      closeDropdown(trigger, list);
+      return;
+    }
+
+    // Close other dropdowns, then open this one.
+    closeAllDesktopDropdowns();
+    openDropdown(trigger, list);
   });
+});
+```
 
   // ── Mobile menu logic ────────────────────────────────────────────────────────
 
