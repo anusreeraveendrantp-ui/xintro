@@ -190,15 +190,21 @@ button {
   margin-left: auto;
 }
 
-.registration {
+.registration button {
   font-size: 0.9rem;
   font-weight: var(--fw-medium);
   padding: 0.6rem 1.25rem;
   border-radius: 0.875rem;
-  transition: background-color 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
+.registration .login-btn {
+  border: none;
+}
+
+.registration .register-btn {
+  border: 1.5px solid var(--clr-medium-gray);
+}
 .login-btn {
   color: var(--clr-medium-gray);
 }
