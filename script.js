@@ -71,10 +71,7 @@ function closeDropdown(trigger, list) {
 
 
 desktopDropdownTriggers.forEach(function (trigger) {
-  trigger.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
+  trigger.addEventListener("click", function () {
     const listId = trigger.dataset.dropdown;
     const list = document.getElementById("dropdown-" + listId);
 
@@ -145,9 +142,13 @@ desktopDropdownTriggers.forEach(function (trigger) {
   });
 
   // ── Close on outside click ───────────────────────────────────────────────────
-
-  document.addEventListener("click", function () {
-    closeAllDesktopDropdowns();
+  // Use mousedown on the document so it fires before the button's click event,
+  // but only close when the click target is outside every nav-item.
+  document.addEventListener("click", function (e) {
+    const insideNav = e.target.closest(".nav-item");
+    if (!insideNav) {
+      closeAllDesktopDropdowns();
+    }
   });
 
   // ── Keyboard: Escape ─────────────────────────────────────────────────────────
