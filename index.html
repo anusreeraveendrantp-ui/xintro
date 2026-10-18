@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
     <!-- ===================== HEADER ===================== -->
     <header class="header">
+
       <!-- Logo -->
-     <a href="/" class="logo" alt="snap's logo">
+      <a href="/" class="logo">
         <img src="./assets/images/logo.svg" alt="snap's logo" />
       </a>
 
-      <!-- Desktop / Mobile Navigation -->
-      <nav class="nav" id="nav" aria-label="Main navigation">
+      <!-- Desktop Navigation -->
+      <nav class="nav" aria-label="Main navigation">
         <ul class="nav-list">
 
           <!-- Features dropdown -->
@@ -101,21 +103,26 @@
         </ul>
       </nav>
 
-      <!-- Authentication buttons -->
-    <div class="auth-buttons">
-  <div class="registration">
-    <button class="login-btn" type="button">Login</button>
-    <button class="register-btn" type="button">Register</button>
-  </div>
-</div>
+      <!-- Authentication buttons (desktop) -->
+      <div class="auth-buttons">
+        <div class="registration">
+          <button class="login-btn" type="button">Login</button>
+          <button class="register-btn" type="button">Register</button>
+        </div>
+      </div>
 
-      <!-- Mobile menu controls -->
-      <button class="open-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <!-- Mobile hamburger -->
+      <button
+        class="open-menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
         <img src="./assets/images/icon-menu.svg" alt="open menu" />
       </button>
     </header>
 
-    <!-- Mobile overlay -->
+    <!-- Mobile overlay (behind the drawer) -->
     <div class="overlay" id="overlay" aria-hidden="true"></div>
 
     <!-- Mobile drawer -->
@@ -209,15 +216,18 @@
         </ul>
       </nav>
 
+      <!-- Mobile auth buttons -->
       <div class="mobile-auth">
-        <button class="registration login-btn">Login</button>
-        <button class="registration register-btn">Register</button>
+        <div class="registration">
+          <button class="login-btn" type="button">Login</button>
+          <button class="register-btn" type="button">Register</button>
+        </div>
       </div>
     </div>
 
     <!-- ===================== MAIN ===================== -->
     <main class="main">
-      <!-- Hero image -->
+      <!-- Hero image (responsive via <picture>) -->
       <picture>
         <source srcset="./assets/images/image-hero-desktop.png" media="(min-width: 768px)" />
         <img
@@ -227,18 +237,18 @@
         />
       </picture>
 
-      <!-- Hero text -->
+      <!-- Hero text + CTA + clients -->
       <div class="text-content">
         <h1>Make remote work</h1>
-       <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
+        <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
         <a href="#" class="cta-btn">Learn more</a>
 
         <!-- Client logos -->
         <section class="clients" aria-label="Our clients">
-          <img src="./assets/images/client-databiz.svg" alt="Databiz" />
+          <img src="./assets/images/client-databiz.svg"   alt="Databiz" />
           <img src="./assets/images/client-audiophile.svg" alt="Audiophile" />
-          <img src="./assets/images/client-meet.svg" alt="Meet" />
-          <img src="./assets/images/client-maker.svg" alt="Maker" />
+          <img src="./assets/images/client-meet.svg"       alt="Meet" />
+          <img src="./assets/images/client-maker.svg"      alt="Maker" />
         </section>
       </div>
     </main>
