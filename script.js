@@ -91,7 +91,7 @@ desktopDropdownTriggers.forEach(function (trigger) {
     openDropdown(trigger, list);
   });
 });
-```
+
 
   // ── Mobile menu logic ────────────────────────────────────────────────────────
 
