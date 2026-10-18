@@ -274,7 +274,7 @@ button {
   display: none;
   flex-direction: column;
   gap: 2rem;
-  z-index: 200;
+  z-index: 201;
   transform: translateX(100%);
   transition: transform 0.3s ease;
 }
